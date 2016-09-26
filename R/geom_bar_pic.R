@@ -110,10 +110,8 @@ GeomBarPic <- ggplot2::ggproto(
   },
 
   # the key also has to be modified to mimic that of BarGeom as the default in Geom
-  # is for points and expects fontsize
-  draw_key = function(data, params, size) {
-    draw_key_rect(data, params, size)
-  },
+  # is for points and expects fontsize.
+  draw_key = ggplot2::draw_key_rect,
 
   # we need to change the setup data to create ymin
   setup_data = function(data, params) {

@@ -1,11 +1,15 @@
 Package: ggpic
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Using raster objects as geoms in ggplot2
+Version: 0.0.0.9000
+Authors@R: person("Victor", "Granda", email = "victorgrandagarcia@gmail.com",
+  role = c("aut", "cre"))
+Description: This package extends ggplot2 to use raster objects to build
+    geoms. It allows using raster or matrix objects created from different
+    sources in ggplot to mimic some geoms (i.e you can make a barplot
+    with trees or buildings instead bars).
+URL: https://github.com/MalditoBarbudo/ggpic
+BugReports: https://github.com/MalditoBarbudo/ggpic/issues
+License: GPL-2 | file LICENSE
 Encoding: UTF-8
 LazyData: true

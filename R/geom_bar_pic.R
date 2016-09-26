@@ -86,24 +86,26 @@ GeomBarPic <- ggplot2::ggproto(
 
     # fill
     fill_index <- !grepl('#00000000', raster, fixed = TRUE)
-    raster[fill_index] <- coords$fill
+    raster[fill_index] <- coords$fill[1]
     # fill_index <- !stringr::str_detect(raster, '#00000000')
     # raster[fill_index] <- coords$fill[1]
 
     # rasterGrob to generate the "shape"
-    grid::rasterGrob(
-      raster,
-      x = coords$xmin, y = coords$ymax,
-      width = coords$xmax - coords$xmin,
-      height = coords$ymax - coords$ymin,
-      just = c("left", "top"),
-      # gp = grid::gpar(
-      #    col = coords$colour, fill = alpha(coords$fill, coords$alpha),
-      #    lwd = coords$size * .pt, lty = coords$linetype, lineend = "butt",
-      #    fontsize = 12
-      # ),
-      default.units = 'native'
-
+    ggplot2:::ggname(
+      "bar_pic",
+      grid::rasterGrob(
+        raster,
+        x = coords$xmin, y = coords$ymax,
+        width = coords$xmax - coords$xmin,
+        height = coords$ymax - coords$ymin,
+        just = c("left", "top"),
+        # gp = grid::gpar(
+        #    col = coords$colour, fill = alpha(coords$fill, coords$alpha),
+        #    lwd = coords$size * .pt, lty = coords$linetype, lineend = "butt",
+        #    fontsize = 12
+        # ),
+        default.units = 'native'
+      )
     )
   },
 

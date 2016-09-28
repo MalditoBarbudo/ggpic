@@ -1,7 +1,7 @@
 Package: ggpic
 Type: Package
 Title: Using raster objects as geoms in ggplot2
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person("Victor", "Granda", email = "victorgrandagarcia@gmail.com",
   role = c("aut", "cre"))
 Description: This package extends ggplot2 to use raster objects to build

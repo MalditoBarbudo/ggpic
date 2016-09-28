@@ -51,6 +51,18 @@ geom_bar_pic <- function(mapping = NULL, data = NULL, stat = "count", position =
   )
 }
 
+#' Draw key function for geom_bar_pic
+#'
+#' To be able to generate a legend with the raster image, ggpic needs a custom
+#' \code{draw_key} function.
+#'
+#' When pic and fill aesthetics does not map to the same variable, fill guide
+#' is redirected to \code{draw_key_rect} and pic guide to a raster grob.
+#'
+#' @inheritParams ggplot2::draw_key
+#'
+#' @export
+
 draw_key_pic <- function(data, params, size) {
   # If pic and fill does not map to same variable, fill guide must be a
   # rect guide and pic guide must be a raster guide:

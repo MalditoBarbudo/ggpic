@@ -15,7 +15,7 @@
 #' are in bold):
 #' \itemize{
 #'     \item{\bold{x}}
-#'     \item{img}
+#'     \item{pic}
 #'     \item{alpha}
 #'     \item{fill}
 #'     \item{colour}
@@ -51,6 +51,22 @@ geom_bar_pic <- function(mapping = NULL, data = NULL, stat = "count", position =
   )
 }
 
+draw_key_pic <- function(data, params, size) {
+  # If pic and fill does not map to same variable, fill guide must be a
+  # rect guide and pic guide must be a raster guide:
+  if (is.na(data$pic)) {
+    ggplot2::draw_key_rect(data, params, size)
+  } else {
+    raster <- eval(as.name(data$pic))
+    fill_index <- !grepl('#00000000', raster, fixed = TRUE)
+    raster[fill_index] <- data$fill[1]
+    grid::rasterGrob(
+      raster,
+      default.units = 'native'
+    )
+  }
+}
+
 #' GeomBarPic ggproto class for geom_bar_pic
 #' @format NULL
 #' @usage NULL
@@ -61,27 +77,30 @@ GeomBarPic <- ggplot2::ggproto(
   # class and inherit
   "GeomBarPic", ggplot2::Geom,
 
-  #
+  # required aes
   required_aes  = "x",
+
+  # non missing aes
+  # non_missing_aes = c("fill", "pic"),
 
   # default_aes
   default_aes = ggplot2::aes(
     colour = NA, fill = 'grey35', size = 0.5,
-    linetype = 1, alpha = NA, img = NA
+    linetype = 1, alpha = NA, pic = NA
   ),
 
   # we change draw_group because we want to redraw the raster for each
-  # group to be able to fill and change of img
-  draw_group = function(data, panel_scales, coord, width = NULL) {
+  # group to be able to fill and change of pic
+  draw_group = function(self, data, panel_scales, coord, width = NULL) {
     # data transform
     coords <- coord$transform(data, panel_scales)
 
-    # print(coords$img)
-    print(coords)
-    # print(coords$img[1])
-    # print(parse(text = coords$img[1]))
+    # print(coords$pic)
+    # print(coords)
+    # print(coords$pic[1])
+    # print(parse(text = coords$pic[1]))
     #
-    raster <- eval(as.name(coords$img[1]))
+    raster <- eval(as.name(coords$pic[1]))
     # print(class(raster))
 
     # fill
@@ -111,14 +130,14 @@ GeomBarPic <- ggplot2::ggproto(
 
   # the key also has to be modified to mimic that of BarGeom as the default in Geom
   # is for points and expects fontsize.
-  draw_key = ggplot2::draw_key_rect,
+  draw_key = draw_key_pic,
 
   # we need to change the setup data to create ymin
   setup_data = function(data, params) {
     # like in GeomBar
     if (is.null(data$width)) {
       if (is.null(params$width)) {
-        data$width <- (resolution(data$x, FALSE) * 0.9)
+        data$width <- (ggplot2::resolution(data$x, FALSE) * 0.9)
       } else {
         data$width <- params$width
       }
@@ -143,5 +162,5 @@ manual_scale <- function(aesthetic, values, ...) {
 
 
 scale_pic_manual <- function(..., values) {
-  manual_scale("img", values, ...)
+  manual_scale("pic", values, ...)
 }

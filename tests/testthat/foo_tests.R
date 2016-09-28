@@ -12,11 +12,24 @@ data <- data.frame(
 )
 
 ggplot(data,
-       aes(x = Site, img = Species, fill = Site)) +
+       aes(x = Site, pic = Species, fill = Site)) +
   geom_bar_pic(aes(y = Height), stat = 'identity') +
-  scale_pic_manual(values = c('pine', 'ash'))
+  scale_pic_manual(values = c('ash', 'pine'))
 
 ggplot(data,
-       aes(x = Site, img = Species, group = Species)) +
+       aes(x = Site, pic = Species, fill = Species)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity') +
+  scale_pic_manual(values = c('ash', 'pine')) +
+  ggthemes::scale_fill_solarized(accent = 'orange') +
+  ggthemes::theme_solarized(light = FALSE)
+
+ggplot(data,
+       aes(x = Site, pic = Species)) +
   geom_bar_pic(aes(y = Height), fill = 'darkgreen', stat = 'identity') +
-  scale_pic_manual(values = c('pine', 'ash'))
+  scale_pic_manual(values = c('ash', 'pine'))
+
+ggplot(data,
+       aes(x = Site)) +
+  geom_bar_pic(aes(pic = Species), fill = 'darkgreen', stat = 'count') +
+  scale_pic_manual(values = c('ash', 'pine'))
+

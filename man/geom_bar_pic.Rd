@@ -71,7 +71,7 @@ pics stacked, change to \code{position = "stack"}.
 are in bold):
 \itemize{
     \item{\bold{x}}
-    \item{img}
+    \item{pic}
     \item{alpha}
     \item{fill}
     \item{colour}

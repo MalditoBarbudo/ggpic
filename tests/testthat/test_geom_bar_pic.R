@@ -15,6 +15,9 @@ ash_df <- as.data.frame(ash)
 building <- as.matrix(as.raster(rsvg::rsvg(
   system.file('pics', 'building.svg', package = 'ggpic')
 )))
+leaf <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'leaf.svg', package = 'ggpic')
+)))
 
 library(ggplot2)
 
@@ -32,6 +35,12 @@ data <- data.frame(
 ggplot(data,
        aes(x = Classes)) +
   geom_bar_pic(aes(y = Height), pic = 'building', stat = 'identity', width = 0.8)
+
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), pic = 'leaf', fill = 'limegreen',
+               stat = 'identity', width = 0.5) +
+  labs(y = 'Leaf length [cm]')
 
 ggplot(data,
        aes(x = Site, pic = Species, fill = Site)) +

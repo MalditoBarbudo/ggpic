@@ -4,14 +4,14 @@ author: "Victor Granda"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction to ggpic}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 `ggpic` extends `ggplot2` package adding geoms based on the the default ones, but
 using raster objects instead of rect elements. This way you can make a barplot
-with trees, buildings or leafs instead bars.
+with trees, buildings or leaves instead bars.
 
 ## Intro
 
@@ -28,7 +28,111 @@ in presentations and posters.
 install.packages('devtools')
 
 # install ggpic
-devtools::install_github('MalditoBarbudo/ggpic')
+devtools::install_github('MalditoBarbudo/ggpic', build_vignettes = TRUE)
 ```
 
 ## Usage
+
+`geom_bar_pic` works as `bar_geom`, so it needs at least an `x` aesthetic. It
+also uses a `pic` aesthetic to indicate the image to use.
+
+```{r basic_plot, message = FALSE, fig.align='center', fig.width=6}
+# libraries
+library(ggplot2)
+library(ggpic)
+library(dplyr)
+
+# pic
+leaf <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'leaf.svg', package = 'ggpic')
+)))
+
+# plot
+iris %>%
+  ggplot(aes(x = Species)) +
+  geom_bar_pic(pic = 'leaf')
+```
+
+***
+
+It also accepts an `y` aesthetic, in combination with `stat = identity`, to map
+y value to a variable value:
+
+```{r y_aes, message = FALSE, fig.align='center', fig.width=6}
+# plot
+iris %>%
+  group_by(Species) %>%
+  summarise_all(funs(mean)) %>%
+  ggplot(aes(x = Species)) +
+  geom_bar_pic(aes(y = Petal.Width), stat = 'identity', pic = 'leaf')
+```
+
+***
+
+`geom_bar_pic` can use the `fill` and the `alpha` aesthetics, and also the
+`width` parameter from `geom_bar`. This could be useful to avoid excesive
+pic deformation:
+
+```{r fill_alpha_width, message = FALSE, fig.align='center', fig.width=6}
+# width
+iris %>%
+  group_by(Species) %>%
+  summarise_all(funs(mean)) %>%
+  ggplot(aes(x = Species)) +
+  geom_bar_pic(aes(y = Petal.Width),
+               stat = 'identity', pic = 'leaf', width = 0.6)
+
+# fill
+iris %>%
+  group_by(Species) %>%
+  summarise_all(funs(mean)) %>%
+  ggplot(aes(x = Species, fill = Species)) +
+  geom_bar_pic(aes(y = Petal.Width),
+               stat = 'identity', pic = 'leaf', width = 0.6)
+
+# alpha
+iris %>%
+  group_by(Species) %>%
+  summarise_all(funs(mean)) %>%
+  ggplot(aes(x = Species, fill = Species)) +
+  geom_bar_pic(aes(y = Petal.Width),
+               stat = 'identity', pic = 'leaf', width = 1.3, alpha = 0.5)
+```
+
+As it can be seen in the last two plots, `geom_bar_pic` also provides a
+legend with the pic and the corresponding fill colour (see `?draw_key_pic`).
+
+***
+
+The `pic` aesthetic, as any other, can be mapped to a variable. In this case it is
+necessary to provide a scale for the `pic` aesthetic with the `scale_pic_manual`
+function:
+
+```{r scale, message = FALSE, fig.align='center', fig.width=6}
+# data
+data <- data.frame(
+  Site = rep(LETTERS[1:3], 2),
+  Species = rep(c('Pine', 'Ash'), each = 3),
+  Height = rpois(6, 15),
+  Deep = rpois(6, 2.2),
+  stringsAsFactors = FALSE
+)
+
+# pics
+pine <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'pine_tree_2.svg', package = 'ggpic')
+)))
+ash <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'deciduous_tree_2.svg', package = 'ggpic')
+)))
+
+# plot
+ggplot(data,
+       aes(x = Site, pic = Species, fill = Species)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity') +
+  scale_pic_manual(values = c('ash', 'pine'))
+```
+
+## Pics
+
+Some info about the raster objects

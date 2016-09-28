@@ -3,3 +3,4 @@
 export(GeomBarPic)
 export(draw_key_pic)
 export(geom_bar_pic)
+export(scale_pic_manual)

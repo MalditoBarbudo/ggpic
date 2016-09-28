@@ -169,8 +169,19 @@ GeomBarPic <- ggplot2::ggproto(
   }
 )
 
-# scale
-manual_scale <- function(aesthetic, values, ...) {
+#' Manual scale for ggpic
+#'
+#' Manual scale for pic aesthetic
+#'
+#' When mapping pic aesthetic to any categorical or discrete variable, a value
+#' for pic for each level must be provided applying this scale function.
+#'
+#' @inheritParams ggplot2::scale_manual
+#'
+#' @export
+
+scale_pic_manual <- function(..., values) {
+  # from manual_scale internal function in ggplot2
   pal <- function(n) {
     if (n > length(values)) {
       stop("Insufficient values in manual scale. ", n, " needed but only ",
@@ -178,10 +189,5 @@ manual_scale <- function(aesthetic, values, ...) {
     }
     values
   }
-  ggplot2::discrete_scale(aesthetic, "manual", pal, ...)
-}
-
-
-scale_pic_manual <- function(..., values) {
-  manual_scale("pic", values, ...)
+  ggplot2::discrete_scale("pic", "manual", pal, ...)
 }

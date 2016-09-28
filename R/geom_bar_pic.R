@@ -76,7 +76,7 @@ draw_key_pic <- function(data, params, size) {
     }
     # filling
     fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
-    raster[fill_index] <- data$fill[1]
+    raster[fill_index] <- ggplot2::alpha(data$fill[1], data$alpha[1])
     # grob
     grid::rasterGrob(
       raster,
@@ -126,7 +126,7 @@ GeomBarPic <- ggplot2::ggproto(
     # print(class(raster))
     # fill
     fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
-    raster[fill_index] <- coords$fill[1]
+    raster[fill_index] <- ggplot2::alpha(coords$fill[1], coords$alpha[1])
     # fill_index <- !stringr::str_detect(raster, '#00000000')
     # raster[fill_index] <- coords$fill[1]
 

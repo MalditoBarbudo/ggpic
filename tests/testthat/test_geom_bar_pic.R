@@ -20,6 +20,7 @@ leaf <- as.matrix(as.raster(rsvg::rsvg(
 )))
 
 library(ggplot2)
+library(dplyr)
 
 data <- data.frame(
   Classes = LETTERS[1:6],
@@ -34,13 +35,25 @@ data <- data.frame(
 
 ggplot(data,
        aes(x = Classes)) +
-  geom_bar_pic(aes(y = Height), pic = 'building', stat = 'identity', width = 0.8)
+  geom_bar_pic(aes(y = Height), pic = 'building',
+               stat = 'identity', width = 0.8) +
+  ggthemes::theme_solarized(light = FALSE)
 
 ggplot(data,
        aes(x = Classes)) +
   geom_bar_pic(aes(y = Height), pic = 'leaf', fill = 'limegreen',
                stat = 'identity', width = 0.5) +
   labs(y = 'Leaf length [cm]')
+
+iris %>%
+  group_by(Species) %>%
+  summarise_all(funs(mean)) %>%
+  ggplot(aes(x = Species, fill = Species)) +
+  geom_bar_pic(aes(y = Petal.Length), pic = 'leaf',
+               stat = 'identity', width = 1.3, alpha = 0.7) +
+  labs(y = 'Petal length [cm]') +
+  ggthemes::scale_fill_solarized() +
+  ggthemes::theme_solarized(light = FALSE)
 
 ggplot(data,
        aes(x = Site, pic = Species, fill = Site)) +

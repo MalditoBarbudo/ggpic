@@ -1,10 +1,20 @@
-pine <- as.matrix(as.raster(rsvg::rsvg('img/pine_tree_2.svg')))
-ash <- as.matrix(as.raster(rsvg::rsvg('img/deciduous_tree_2.svg')))
-pine_raster <- as.raster(rsvg::rsvg('img/pine_tree_2.svg'))
-ash_raster <- as.raster(rsvg::rsvg('img/deciduous_tree_2.svg'))
+pine <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'pine_tree_2.svg', package = 'ggpic')
+)))
+ash <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'deciduous_tree_2.svg', package = 'ggpic')
+)))
+pine_raster <- as.raster(rsvg::rsvg(
+  system.file('pics', 'pine_tree_2.svg', package = 'ggpic')
+))
+ash_raster <- as.raster(rsvg::rsvg(
+  system.file('pics', 'deciduous_tree_2.svg', package = 'ggpic')
+))
 pine_df <- as.data.frame(pine)
 ash_df <- as.data.frame(ash)
-building <- as.matrix(as.raster(rsvg::rsvg('img/building.svg')))
+building <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'building.svg', package = 'ggpic')
+)))
 
 library(ggplot2)
 

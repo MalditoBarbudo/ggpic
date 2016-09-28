@@ -28,6 +28,9 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
    the plot data. The return value must be a \code{data.frame.}, and
    will be used as the layer data.}
 
+\item{stat}{Override the default connection between \code{geom_bar_pic}
+and \code{stat_count}.}
+
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
@@ -49,9 +52,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
-
-\item{geom, stat}{Override the default connection between \code{geom_bar_pic}
-and \code{stat_count}.}
 }
 \description{
 As in \code{\link[ggplot2]{geom_bar}}, depending on what is maped to bar_pic

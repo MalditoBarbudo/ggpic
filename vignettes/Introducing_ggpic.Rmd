@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-`ggpic` extends `ggplot2` package adding geoms based on the default ones, but
+`ggpic` extends `ggplot2` package adding geoms based on the the default ones, but
 using raster objects instead of rect elements. This way you can make a barplot
 with trees, buildings or leafs instead bars.
 

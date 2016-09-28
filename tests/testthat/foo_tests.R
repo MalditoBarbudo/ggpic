@@ -1,5 +1,9 @@
 pine <- as.matrix(as.raster(rsvg::rsvg('img/pine_tree_2.svg')))
 ash <- as.matrix(as.raster(rsvg::rsvg('img/deciduous_tree_2.svg')))
+pine_raster <- as.raster(rsvg::rsvg('img/pine_tree_2.svg'))
+ash_raster <- as.raster(rsvg::rsvg('img/deciduous_tree_2.svg'))
+pine_df <- as.data.frame(pine)
+ash_df <- as.data.frame(ash)
 
 library(ggplot2)
 
@@ -20,6 +24,20 @@ ggplot(data,
        aes(x = Site, pic = Species, fill = Species)) +
   geom_bar_pic(aes(y = Height), stat = 'identity') +
   scale_pic_manual(values = c('ash', 'pine')) +
+  ggthemes::scale_fill_solarized(accent = 'orange') +
+  ggthemes::theme_solarized(light = FALSE)
+
+ggplot(data,
+       aes(x = Site, pic = Species, fill = Species)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity') +
+  scale_pic_manual(values = c('ash_raster', 'pine_raster')) +
+  ggthemes::scale_fill_solarized(accent = 'orange') +
+  ggthemes::theme_solarized(light = FALSE)
+
+ggplot(data,
+       aes(x = Site, pic = Species, fill = Species)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity') +
+  scale_pic_manual(values = c('ash_df', 'pine_df')) +
   ggthemes::scale_fill_solarized(accent = 'orange') +
   ggthemes::theme_solarized(light = FALSE)
 

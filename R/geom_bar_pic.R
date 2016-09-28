@@ -58,8 +58,14 @@ draw_key_pic <- function(data, params, size) {
     ggplot2::draw_key_rect(data, params, size)
   } else {
     raster <- eval(as.name(data$pic))
+    # For correct filling we need to convert to matrix if not already
+    if (class(raster) != 'matrix') {
+      raster <- as.matrix(raster)
+    }
+    # filling
     fill_index <- !grepl('#00000000', raster, fixed = TRUE)
     raster[fill_index] <- data$fill[1]
+    # grob
     grid::rasterGrob(
       raster,
       default.units = 'native'
@@ -101,8 +107,11 @@ GeomBarPic <- ggplot2::ggproto(
     # print(parse(text = coords$pic[1]))
     #
     raster <- eval(as.name(coords$pic[1]))
-    # print(class(raster))
-
+    # For correct filling we need to convert to matrix if not already
+    if (class(raster) != 'matrix') {
+      raster <- as.matrix(raster)
+    }
+    print(class(raster))
     # fill
     fill_index <- !grepl('#00000000', raster, fixed = TRUE)
     raster[fill_index] <- coords$fill[1]

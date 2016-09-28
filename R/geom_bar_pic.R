@@ -91,7 +91,7 @@ GeomBarPic <- ggplot2::ggproto(
 
   # default_aes
   default_aes = ggplot2::aes(
-    colour = NA, fill = 'grey35', size = 0.5,
+    colour = NA, fill = '#000000FF', size = 0.5,
     linetype = 1, alpha = NA, pic = NA
   ),
 

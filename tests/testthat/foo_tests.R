@@ -9,6 +9,7 @@ building <- as.matrix(as.raster(rsvg::rsvg('img/building.svg')))
 library(ggplot2)
 
 data <- data.frame(
+  Classes = LETTERS[1:6],
   Site = rep(LETTERS[1:3], 2),
   Species = rep(c('Pine', 'Ash'), each = 3),
   Country = rep(c('SPA', 'POR', 'ITA'), 2),
@@ -17,6 +18,10 @@ data <- data.frame(
   Deep = rpois(6, 2.2),
   stringsAsFactors = FALSE
 )
+
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), pic = 'building', stat = 'identity', width = 0.8)
 
 ggplot(data,
        aes(x = Site, pic = Species, fill = Site)) +
@@ -58,6 +63,6 @@ ggplot(data,
 
 ggplot(data,
        aes(x = Site)) +
-  geom_bar_pic(aes(pic = Species), fill = 'darkgreen', stat = 'count') +
+  geom_bar_pic(aes(pic = Species), stat = 'count') +
   scale_pic_manual(values = c('ash', 'pine'))
 

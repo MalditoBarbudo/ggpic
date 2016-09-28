@@ -1,0 +1,34 @@
+---
+title: "Introduction to ggpic"
+author: "Victor Granda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`ggpic` extends `ggplot2` package adding geoms based on the default ones, but
+using raster objects instead of rect elements. This way you can make a barplot
+with trees, buildings or leafs instead bars.
+
+## Intro
+
+disclaimer about why ggpic, no using it in serious business and its potential
+in presentations and posters.
+
+## Installation
+
+`ggpic` is only available from GitHub at the moment. You can install it using
+`devtools` package:
+
+```{r, eval=FALSE}
+# install devtools if necessary
+install.packages('devtools')
+
+# install ggpic
+devtools::install_github('MalditoBarbudo/ggpic')
+```
+
+## Usage

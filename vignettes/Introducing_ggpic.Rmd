@@ -212,9 +212,3 @@ drawing program as [inkscape](https://inkscape.org). If no transparent pixels
 are found, fill will be done to the entire image, which is undesirable.  
 If you want to use a *pic* with no transparent pixels, make sure to indicate
 `asis = TRUE` to avoid filling step.
-
-
-You can load
-a *pic* from a svg file with the
-[rsvg](https://cran.r-project.org/web/packages/rsvg/index.html) package, transform
-it to raster and to matrix and feed it to `geom_

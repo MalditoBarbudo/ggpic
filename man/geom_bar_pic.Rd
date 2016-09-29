@@ -6,7 +6,7 @@
 \usage{
 geom_bar_pic(mapping = NULL, data = NULL, stat = "count",
   position = "dodge", width = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  asis = FALSE, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or

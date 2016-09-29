@@ -42,13 +42,51 @@
 # geom_function
 geom_bar_pic <- function(mapping = NULL, data = NULL, stat = "count", position = "dodge",
                          width = NULL, na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+                         asis = FALSE, inherit.aes = TRUE, ...) {
 
   ggplot2::layer(
     geom = GeomBarPic, data = data, mapping = mapping, stat = stat,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(width = width, na.rm = na.rm, ...)
+    params = list(width = width, na.rm = na.rm, asis = asis, ...)
   )
+}
+
+#' Raster load and fill helper function
+#'
+#' Loading the raster image and filling int must be done in the draw_group
+#' function inside de GeomBarPic class and also in the draw_key_pic function.
+#' This helper function do that and as a outside function is easy to maintain.
+#'
+#' @param pic character with the raster or matrix object name
+#'
+#' @param fill fill colour, as character
+#'
+#' @param alpha alpha as numeric, from 0 (full transparency) to 1 (full opaque)
+#'
+#' @param asis logical indicating if the pic must be filled or maintained as it
+#'   is.
+#'
+#' @keywords internal
+
+pic_load_and_fill <- function(pic, fill, alpha, asis) {
+
+  # raster load
+  raster <- eval(as.name(pic))
+
+  # For correct filling we need to convert to matrix if not already
+  if (class(raster) != 'matrix') {
+    raster <- as.matrix(raster)
+  }
+
+  # fill
+  if (asis) {
+    return(raster)
+  } else {
+    fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
+    raster[fill_index] <- ggplot2::alpha(fill, alpha)
+  }
+  # value
+  return(raster)
 }
 
 #' Draw key function for geom_bar_pic
@@ -69,14 +107,15 @@ draw_key_pic <- function(data, params, size) {
   if (is.na(data$pic)) {
     ggplot2::draw_key_rect(data, params, size)
   } else {
-    raster <- eval(as.name(data$pic))
-    # For correct filling we need to convert to matrix if not already
-    if (class(raster) != 'matrix') {
-      raster <- as.matrix(raster)
-    }
-    # filling
-    fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
-    raster[fill_index] <- ggplot2::alpha(data$fill[1], data$alpha[1])
+    # raster <- eval(as.name(data$pic))
+    # # For correct filling we need to convert to matrix if not already
+    # if (class(raster) != 'matrix') {
+    #   raster <- as.matrix(raster)
+    # }
+    # # filling
+    # fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
+    # raster[fill_index] <- ggplot2::alpha(data$fill[1], data$alpha[1])
+    raster <- pic_load_and_fill(data$pic, data$fill, data$alpha, params$asis)
     # grob
     grid::rasterGrob(
       raster,
@@ -109,26 +148,29 @@ GeomBarPic <- ggplot2::ggproto(
 
   # we change draw_group because we want to redraw the raster for each
   # group to be able to fill and change of pic
-  draw_group = function(self, data, panel_scales, coord, width = NULL) {
+  draw_group = function(self, data, panel_scales, coord,
+                        width = NULL, asis = FALSE) {
     # data transform
     coords <- coord$transform(data, panel_scales)
 
-    # print(coords$pic)
-    # print(coords)
-    # print(coords$pic[1])
-    # print(parse(text = coords$pic[1]))
-    #
-    raster <- eval(as.name(coords$pic[1]))
-    # For correct filling we need to convert to matrix if not already
-    if (class(raster) != 'matrix') {
-      raster <- as.matrix(raster)
-    }
-    # print(class(raster))
-    # fill
-    fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
-    raster[fill_index] <- ggplot2::alpha(coords$fill[1], coords$alpha[1])
-    # fill_index <- !stringr::str_detect(raster, '#00000000')
-    # raster[fill_index] <- coords$fill[1]
+    # # print(coords$pic)
+    # # print(coords)
+    # # print(coords$pic[1])
+    # # print(parse(text = coords$pic[1]))
+    # #
+    # raster <- eval(as.name(coords$pic[1]))
+    # # For correct filling we need to convert to matrix if not already
+    # if (class(raster) != 'matrix') {
+    #   raster <- as.matrix(raster)
+    # }
+    # # print(class(raster))
+    # # fill
+    # fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
+    # raster[fill_index] <- ggplot2::alpha(coords$fill[1], coords$alpha[1])
+    # # fill_index <- !stringr::str_detect(raster, '#00000000')
+    # # raster[fill_index] <- coords$fill[1]
+    raster <- pic_load_and_fill(coords$pic[1], coords$fill[1],
+                                coords$alpha[1], asis)
 
     # rasterGrob to generate the "shape"
     ggplot2:::ggname(

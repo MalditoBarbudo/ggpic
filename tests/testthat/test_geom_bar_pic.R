@@ -18,6 +18,9 @@ building <- as.matrix(as.raster(rsvg::rsvg(
 leaf <- as.matrix(as.raster(rsvg::rsvg(
   system.file('pics', 'leaf.svg', package = 'ggpic')
 )))
+rainbow_building <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'rainbow_building.svg', package = 'ggpic')
+)))
 
 library(ggplot2)
 library(dplyr)
@@ -98,3 +101,13 @@ ggplot(data,
   geom_bar_pic(aes(pic = Species), stat = 'count') +
   scale_pic_manual(values = c('ash', 'pine'))
 
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity',
+               pic = 'rainbow_building', asis = TRUE)
+
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity',
+               pic = 'rainbow_building', asis = FALSE,
+               fill = 'brown')

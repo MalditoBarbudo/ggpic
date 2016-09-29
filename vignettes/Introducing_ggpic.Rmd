@@ -212,3 +212,27 @@ drawing program as [inkscape](https://inkscape.org). If no transparent pixels
 are found, fill will be done to the entire image, which is undesirable.  
 If you want to use a *pic* with no transparent pixels, make sure to indicate
 `asis = TRUE` to avoid filling step.
+
+### Ready to use *pics*
+
+`gpic` comes with several ready to use *pics*. Some were designed by me, so do not
+expect real art, others were found in the web, so they are better ;)
+
++ `leaf.svg`: Designed by me, under MIT license, so feel free to use it without
+  restrictions.
+
++ `building.svg`: Designed by me, under MIT license, so feel free to use it without
+  restrictions.
+
++ `rainbow_building.svg`: Designed by me, under MIT license, so feel free to use
+  it without restrictions.
+
+*Pics* are located in the `pics` folder at the `ggpic` package installation
+folder. Using them is easy with `sistem.file`:
+
+```{r pics_system.file, eval=FALSE}
+# loading rainbow_building pic
+rainbow_building <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'rainbow_building.svg', package = 'ggpic')
+)))
+```

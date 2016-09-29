@@ -36,6 +36,10 @@
 #' @param width Pic width. By default, set to 90\% of the resolution of the data.
 #' @param stat Override the default connection between \code{geom_bar_pic}
 #'   and \code{stat_count}.
+#' @param asis Logical indicating if the pic must be used as is, with no filling.
+#'   If FALSE, the default, image not transparent pixels will be filled to the
+#'   color provided in \code{fill} or black (default). If TRUE, image will
+#'   maintain the original colors.
 #'
 #' @export
 

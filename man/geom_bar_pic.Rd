@@ -43,6 +43,11 @@ a warning.  If \code{TRUE} silently removes missing values.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
+\item{asis}{Logical indicating if the pic must be used as is, with no filling.
+If FALSE, the default, image not transparent pixels will be filled to the
+color provided in \code{fill} or black (default). If TRUE, image will
+maintain the original colors.}
+
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from

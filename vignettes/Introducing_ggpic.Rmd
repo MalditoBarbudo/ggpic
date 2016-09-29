@@ -13,10 +13,31 @@ vignette: >
 using raster objects instead of rect elements. This way you can make a barplot
 with trees, buildings or leaves instead bars.
 
-## Intro
+## Disclaimer
 
-**TODO** disclaimer about why ggpic, no using it in serious business and its potential
-in presentations and posters.
+`ggpic` is made for fun, no serious bussiness here. I stumbled upon a very boring
+barplot and I started thinking that, visually, it would be amazing to be able
+to represent tree drawings instead bars.  
+Thanks to the nice guys at RStudio (Hadley Wickham, Winston Chang and others)
+there is a wonderful resource about
+[extending ggplot](http://docs.ggplot2.org/dev/vignettes/extending-ggplot2.html).
+Also, [emoGG](https://github.com/dill/emoGG) does something similar substituting
+points with emojis, and [rphylopic](https://github.com/sckott/rphylopic) allows
+you to add pics to the plots, so I thought *why not?*.  
+And the result is `ggpic`.
+
+### Not serious bussiness, but useful
+
+I'm not advocating for barplots. I prefer boxplots when communicating results
+in reports or papers. But sometimes, barplots can be useful when communicating
+informative data not intended for analysis in presentations or posters. Think,
+for example, that you want to show the number of trees measured in several
+locations. You can present a table, nice for reports and papers or you can
+present a barplot summarising the table, which is good for posters and
+presentations. Now, if instead of bars you represent a drawing of the tree
+and map it to the y variable it would make the plot more attractive to the
+audience (I think). So this is where `ggpic` enters in the game. It allows
+exactly that.
 
 ## Installation
 

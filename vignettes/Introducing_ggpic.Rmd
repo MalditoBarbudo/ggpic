@@ -15,7 +15,7 @@ with trees, buildings or leaves instead bars.
 
 ## Intro
 
-disclaimer about why ggpic, no using it in serious business and its potential
+**TODO** disclaimer about why ggpic, no using it in serious business and its potential
 in presentations and posters.
 
 ## Installation
@@ -135,4 +135,4 @@ ggplot(data,
 
 ## Pics
 
-Some info about the raster objects
+**TODO** Some info about the raster objects

@@ -132,6 +132,7 @@ function:
 ```{r scale, message = FALSE, fig.align='center', fig.width=6}
 # data
 data <- data.frame(
+  Classes = LETTERS[1:6],
   Site = rep(LETTERS[1:3], 2),
   Species = rep(c('Pine', 'Ash'), each = 3),
   Height = rpois(6, 15),
@@ -153,6 +154,30 @@ ggplot(data,
   geom_bar_pic(aes(y = Height), stat = 'identity') +
   scale_pic_manual(values = c('ash', 'pine'))
 ```
+
+***
+
+The *pic* also can be used *as is*, without filling. This could be necessary when
+importing an image without transparency or simply if there is no fill
+aesthetic, to avoid black default filling.
+
+```{r asis_parameter, message = FALSE, fig.align='center', fig.width=6}
+# pic
+rainbow_building <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'rainbow_building.svg', package = 'ggpic')
+)))
+
+# plot
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity',
+               pic = 'rainbow_building', asis = TRUE,
+               fill = 'brown') +
+  theme_minimal()
+```
+
+As seen above, even if you add a `fill` parameter/aesthetic, this is ignored when
+`asis = TRUE`.
 
 ## Pics
 

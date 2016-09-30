@@ -24,9 +24,8 @@ rainbow_building <- as.matrix(as.raster(rsvg::rsvg(
 rainbow_building_png <- as.matrix(as.raster(png::readPNG(
   system.file('pics', 'rainbow_building.png', package = 'ggpic')
 )))
-
-rlogo <- as.matrix(as.raster(rsvg::rsvg(
-  system.file('pics', 'Rlogo.svg', package = 'ggpic')
+mouse <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'mouse.svg', package = 'ggpic')
 )))
 
 library(ggplot2)
@@ -132,4 +131,6 @@ ggplot(data,
 ggplot(data,
        aes(x = Classes)) +
   geom_bar_pic(aes(y = Height), stat = 'identity',
-               pic = 'rlogo', asis = FALSE)
+               pic = 'mouse', asis = TRUE) +
+  coord_flip() +
+  theme_minimal()

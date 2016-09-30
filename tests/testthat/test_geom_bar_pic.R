@@ -21,6 +21,13 @@ leaf <- as.matrix(as.raster(rsvg::rsvg(
 rainbow_building <- as.matrix(as.raster(rsvg::rsvg(
   system.file('pics', 'rainbow_building.svg', package = 'ggpic')
 )))
+rainbow_building_png <- as.matrix(as.raster(png::readPNG(
+  system.file('pics', 'rainbow_building.png', package = 'ggpic')
+)))
+
+rlogo <- as.matrix(as.raster(rsvg::rsvg(
+  system.file('pics', 'Rlogo.svg', package = 'ggpic')
+)))
 
 library(ggplot2)
 library(dplyr)
@@ -111,3 +118,18 @@ ggplot(data,
   geom_bar_pic(aes(y = Height), stat = 'identity',
                pic = 'rainbow_building', asis = FALSE,
                fill = 'brown')
+
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity',
+               pic = 'rainbow_building_png', asis = TRUE)
+
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity',
+               pic = 'rlogo', asis = TRUE)
+
+ggplot(data,
+       aes(x = Classes)) +
+  geom_bar_pic(aes(y = Height), stat = 'identity',
+               pic = 'rlogo', asis = FALSE)

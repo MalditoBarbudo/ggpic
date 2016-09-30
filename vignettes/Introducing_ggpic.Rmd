@@ -199,8 +199,16 @@ allows flexibility to load the images from different sources:
     matrix. The reason behind this transformation is that the filling process
     is easy this way. Also, matrix objects are lighter.
   
-  + from png files imported with `readPNG`
-  **TODO** more info about pngs
+  + from png files imported with `readPNG` from the
+    [png](https://cran.r-project.org/web/packages/png/index.html) package:
+    
+    ```{r}
+    rainbow_building_png <- as.matrix(as.raster(png::readPNG(
+      system.file('pics', 'rainbow_building.png', package = 'ggpic')
+    )))
+    ```
+  
+  + from any other source that produces a raster array
 
 ### Transparency
 

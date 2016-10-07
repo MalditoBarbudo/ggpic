@@ -111,14 +111,7 @@ draw_key_pic <- function(data, params, size) {
   if (is.na(data$pic)) {
     ggplot2::draw_key_rect(data, params, size)
   } else {
-    # raster <- eval(as.name(data$pic))
-    # # For correct filling we need to convert to matrix if not already
-    # if (class(raster) != 'matrix') {
-    #   raster <- as.matrix(raster)
-    # }
-    # # filling
-    # fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
-    # raster[fill_index] <- ggplot2::alpha(data$fill[1], data$alpha[1])
+    # load pic and fill it
     raster <- pic_load_and_fill(data$pic, data$fill, data$alpha, params$asis)
     # grob
     grid::rasterGrob(
@@ -157,22 +150,7 @@ GeomBarPic <- ggplot2::ggproto(
     # data transform
     coords <- coord$transform(data, panel_scales)
 
-    # # print(coords$pic)
-    # # print(coords)
-    # # print(coords$pic[1])
-    # # print(parse(text = coords$pic[1]))
-    # #
-    # raster <- eval(as.name(coords$pic[1]))
-    # # For correct filling we need to convert to matrix if not already
-    # if (class(raster) != 'matrix') {
-    #   raster <- as.matrix(raster)
-    # }
-    # # print(class(raster))
-    # # fill
-    # fill_index <- !grepl('^#[0-9a-fA-F]{6}00$', raster)
-    # raster[fill_index] <- ggplot2::alpha(coords$fill[1], coords$alpha[1])
-    # # fill_index <- !stringr::str_detect(raster, '#00000000')
-    # # raster[fill_index] <- coords$fill[1]
+    # load and fill pic
     raster <- pic_load_and_fill(coords$pic[1], coords$fill[1],
                                 coords$alpha[1], asis)
 
@@ -202,6 +180,8 @@ GeomBarPic <- ggplot2::ggproto(
   # we need to change the setup data to create ymin
   setup_data = function(data, params) {
     # like in GeomBar
+    # data$width <- data$width %||% params$width %||% (resolution(data$x, FALSE) * 0.9)
+    # I didn't found the %||% function but it seems to do the following:
     if (is.null(data$width)) {
       if (is.null(params$width)) {
         data$width <- (ggplot2::resolution(data$x, FALSE) * 0.9)
@@ -209,7 +189,6 @@ GeomBarPic <- ggplot2::ggproto(
         data$width <- params$width
       }
     }
-    # data$width <- data$width %||% params$width %||% (resolution(data$x, FALSE) * 0.9)
     transform(data, ymin = pmin(y, 0), ymax = pmax(y, 0), xmin = x -
                 width/2, xmax = x + width/2, width = NULL)
   }

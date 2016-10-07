@@ -62,7 +62,7 @@ For more examples and a complete description of the package
 see the *Introduction to ggpic* vignette:
 
 ```r
-vignette('Introduction to ggpic', package = 'ggpic')
+vignette('Introducing_ggpic', package = 'ggpic')
 ```
 
 ## Known issues

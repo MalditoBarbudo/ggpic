@@ -48,9 +48,9 @@ devtools::install_github('MalditoBarbudo/ggpic', build_vignettes = TRUE)
 
 ## Features
 
-+ Example pics in the packages, see
-  `dir(system.file('pics', package = 'ggpic'))`, but not limited to those as pics
-  can be loaded from any raster object.
++ "Ready to use" pics in the package, see
+  `dir(system.file('pics', package = 'ggpic'))`. Pics also can be loaded from
+  a raster object.
 
 + Geoms (*only geom_bar_pic is implemented at the moment*) can make use of most
   of the aesthetics or parameters related to their ggplot "parent" geom, i.e

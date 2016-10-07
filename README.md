@@ -19,9 +19,11 @@ leaf <- as.matrix(as.raster(rsvg::rsvg(
 
 # plot
 iris %>%
-  ggplot(aes(x = Species)) +
+  ggplot(aes(x = Species, fill = Species)) +
   geom_bar_pic(pic = 'leaf')
 ```
+
+![](example.png)
 
 ## Installation
 
@@ -44,11 +46,28 @@ devtools::install_github('MalditoBarbudo/ggpic', build_vignettes = TRUE)
 
 + `draw_key_pic` A guide function to be able to generate legends for the *pics*
 
+## Features
+
++ Example pics in the packages, see
+  `dir(system.file('pics', package = 'ggpic'))`, but not limited to those as pics
+  can be loaded from any raster object.
+
++ Geoms (*only geom_bar_pic is implemented at the moment*) can make use of most
+  of the aesthetics or parameters related to their ggplot "parent" geom, i.e
+  `fill` or `width` in `geom_bar_pic`.
+
 ## See more
 
-For more examples and a complete description of the packge
+For more examples and a complete description of the package
 see the *Introduction to ggpic* vignette:
 
-```
+```r
 vignette('Introduction to ggpic', package = 'ggpic')
 ```
+
+## Known issues
+
+### flexdashboards
+
+`ggpic` does not work well in a `flexdashboard` environment, even if it works
+in `Rmd` documents. Not sure why this is happening yet.

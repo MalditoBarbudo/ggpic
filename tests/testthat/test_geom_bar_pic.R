@@ -95,7 +95,8 @@ ggplot(data,
   geom_bar_pic(aes(y = Height), stat = 'identity') +
   scale_pic_manual(values = c('ash_df', 'pine_df')) +
   ggthemes::scale_fill_solarized(accent = 'orange') +
-  ggthemes::theme_solarized(light = FALSE)
+  ggthemes::theme_solarized(light = FALSE) +
+  facet_grid(. ~ Country)
 
 ggplot(data,
        aes(x = Site, pic = Species)) +

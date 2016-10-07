@@ -290,3 +290,8 @@ ggplot(data,
   theme_minimal() +
   coord_flip()
 ```
+
+### flexdashboards
+
+`ggpic` does not work well in a `flexdashboard` environment, even if it works
+in `Rmd` documents. Not sure why this is happening yet.

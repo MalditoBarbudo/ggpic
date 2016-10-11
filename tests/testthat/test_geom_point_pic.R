@@ -32,18 +32,16 @@ library(ggplot2)
 library(dplyr)
 
 data <- data.frame(
-  Classes = LETTERS[1:6],
-  Site = rep(LETTERS[1:3], 2),
-  Species = rep(c('Pine', 'Ash'), each = 3),
-  Country = rep(c('SPA', 'POR', 'ITA'), 2),
-  Area = rep(c('Coast', 'Inside'), each = 3),
-  Height = rpois(6, 15),
-  Deep = rpois(6, 2.2),
-  stringsAsFactors = FALSE
+  x = rnorm(10),
+  y = rnorm(10, 4),
+  f = rep(c('Q. robur', 'P. pinaster'), 10)
 )
 
 ggplot(data,
-       aes(x = Height, y = Deep)) +
-  geom_point_pic(aes(pic = Species, fill = Species)) +
-  scale_pic_manual(values = c('ash', 'pine'), size = 0.05) +
-  ggthemes::theme_solarized(light = FALSE)
+       aes(x = x, y = y, fill = f)) +
+  geom_point_pic(aes(pic = f), size = 0.05, alpha = .5) +
+  # geom_point(colour = 'yellow', size = 5) +
+  scale_pic_manual(values = c('pine', 'ash')) +
+  # stat_smooth(aes(colour = f), method = "glm") +
+  ggthemes::theme_solarized(light = FALSE) +
+  theme(legend.position = 'bottom')

@@ -76,13 +76,19 @@ GeomPointPic <-  ggplot2::ggproto(
     raster <- pic_load_and_fill(coords$pic[1], coords$fill[1],
                                 coords$alpha[1], asis)
 
+    # width and height comes from size aesthetic. In order to avoid deformation
+    # of the pic, height is setted by size and width is calculated to scale the
+    # pic
+    pic_ratio <- ncol(raster)/nrow(raster)
+    raster_width <- pic_ratio * coords$size
+
     # rasterGrob to generate the "shape"
     ggplot2:::ggname(
       "point_pic",
       grid::rasterGrob(
         raster,
         x = coords$x, y = coords$y,
-        width = coords$size,
+        width = raster_width,
         height = coords$size,
         just = c("center", "center"),
         # gp = grid::gpar(
